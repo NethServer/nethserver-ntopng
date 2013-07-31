@@ -1,0 +1,22 @@
+#!/usr/bin/perl -w
+
+package esmith;
+
+use strict;
+use Errno;
+use esmith::templates;
+use esmith::util;
+use esmith::AccountsDB;
+use esmith::ConfigDB;
+
+my $confdb = esmith::ConfigDB->open;
+my $ntopng = $confdb->get('ntopng');
+my $alias = $ntopng->prop('Alias') || "";
+
+# initialize alias if needed
+if ($alias eq "") {
+    $alias = esmith::util::genRandomHash();
+    $confdb->set_prop('ntopng','Alias',$alias);
+}
+
+exit (0);

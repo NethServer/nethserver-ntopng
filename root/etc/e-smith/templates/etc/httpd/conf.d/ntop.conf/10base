@@ -1,0 +1,5 @@
+{
+    my $alias = $ntopng{'Alias'} || 'ntop';
+    $OUT.="ProxyPass /$alias/ http://localhost:3000/\n";
+    $OUT.="ProxyPassReverse /$alias/ http://localhost:3000/\n";
+}

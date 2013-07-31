@@ -1,0 +1,18 @@
+{  
+    use esmith::NetworksDB;
+    use esmith::util;
+
+    my $net = "";
+    my $device = "";
+    my $ndb = esmith::NetworksDB->open_ro();
+    my @interfaces = ($ndb->ethernets,$ndb->bridges,$ndb->bonds);
+    for my $ether (@interfaces) {
+        my $role = $ether->prop('role') || '';
+        if ($role eq 'green') {
+           $device = $ether->key;
+           $net = esmith::util::computeLocalNetworkShortSpec($ether->prop('ipaddr'), $ether->prop('netmask'))
+        }
+    }
+
+    $OUT.="-i $device -l -e -m $net";
+}
