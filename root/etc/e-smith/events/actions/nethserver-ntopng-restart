@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Ntopng doesn't implement 'status' action on init.d script
+# This is a workaround to correctly restart the service
+
+status=`/sbin/e-smith/config getprop ntopng status`
+if [ $status == "enabled" ]; then
+    /usr/bin/nohup /sbin/service ntopng restart &>/dev/null
+else
+    /usr/bin/nohup /sbin/service ntopng stop &>/dev/null
+fi

@@ -1,0 +1,8 @@
+user.admin.full_name=Administrator
+user.admin.group=administrator
+{
+    use Digest::MD5 qw(md5_hex);
+    my $pass = $ntopng{'Password'} || 'admin';
+    $pass = md5_hex($pass); 
+    $OUT.="user.admin.password=$pass\n";
+}

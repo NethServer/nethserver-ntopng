@@ -1,0 +1,41 @@
+Summary: NethServer ntopng configuration
+Name: nethserver-ntopng
+Version: @@VERSION@@
+Release: @@RELEASE@@
+License: GPL
+URL: %{url_prefix}/%{name} 
+Source0: %{name}-%{version}.tar.gz
+BuildArch: noarch
+
+Requires: ntopng
+Requires: nethserver-redis
+
+BuildRequires: perl
+BuildRequires: nethserver-devtools 
+
+%description
+NethServer ntopng configuration
+
+%prep
+%setup
+
+%build
+perl createlinks
+
+%install
+rm -rf $RPM_BUILD_ROOT
+(cd root; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+%{genfilelist} $RPM_BUILD_ROOT --dir /var/run/ntopng "%attr(0755,nobody,nobody)"  > %{name}-%{version}-filelist
+echo "%doc COPYING" >> %{name}-%{version}-filelist
+
+%post
+
+%preun
+
+%files -f %{name}-%{version}-filelist
+%defattr(-,root,root)
+
+%changelog
+* Wed Jul 31 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.0-1.ns6
+- First release  #1126
+
