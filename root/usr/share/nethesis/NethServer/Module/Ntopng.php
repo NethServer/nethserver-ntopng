@@ -45,7 +45,7 @@ class Ntopng extends \Nethgui\Controller\AbstractController
 
     protected function onParametersSaved($changes)
     {
-        $this->getPlatform()->signalEvent('nethserver-ntopng-update@post-process');
+        $this->getPlatform()->signalEvent('nethserver-ntopng-save@post-process');
     }
 
     public function prepareView(\Nethgui\View\ViewInterface $view) 

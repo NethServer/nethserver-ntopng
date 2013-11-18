@@ -16,7 +16,6 @@
     }
 
     $OUT.="-i=$device\n";
-    $OUT.="-e\n";
     $OUT.="-w=$port\n";
     $OUT.="-m=$net\n";
     $OUT.="-G=/var/run/ntopng/ntopng.pid";

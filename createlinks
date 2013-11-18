@@ -23,16 +23,35 @@
 use strict;
 use esmith::Build::CreateLinks  qw(:all);
 
-#--------------------------------------------------
-# actions for nethserver-ntopng-update event
-#--------------------------------------------------
+#
+# Event nethserver-ntopng-update 
+#
+event_templates("nethserver-ntopng-update", qw(
+    /etc/ntopng/ntopng.conf
+    /etc/init/ntopng.conf
+    /var/tmp/ntopng-users.conf
+));
+event_actions("nethserver-ntopng-update", qw(
+    initialize-default-databases 00
+));
+event_services("nethserver-ntopng-update", qw(
+    ntopng restart
+));
 
-my $event = "nethserver-ntopng-update";
 
-event_actions($event, 
-    'initialize-default-databases' => '00',
-    'nethserver-ntopng-restart' => '20',
-    'firewall-adjust' => '30'
-);
-templates2events("/etc/ntopng/ntopng.conf",  $event);
-templates2events("/var/tmp/ntopng-users.conf",  $event);
+#
+# Event nethserver-ntopng-save
+#
+event_templates("nethserver-ntopng-save", qw(
+    /etc/ntopng/ntopng.conf
+    /var/tmp/ntopng-users.conf
+));
+event_actions("nethserver-ntopng-save", qw(
+    firewall-adjust 70
+));
+event_services("nethserver-ntopng-save", qw(
+    ntopng restart
+));
+
+
+
