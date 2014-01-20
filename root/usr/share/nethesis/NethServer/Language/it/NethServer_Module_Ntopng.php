@@ -1,6 +1,6 @@
 <?php 
 
-$L['status_label'] = 'Abilita Ntopng'; 
+$L['status_label'] = 'Abilita ntopng'; 
 $L['ntopng_title'] = 'Monitor utilizzo banda';
 $L['username_label'] = 'Username'; 
 $L['Password_label'] = 'Password per l\'utente \'admin\''; 
