@@ -37,6 +37,10 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 %defattr(-,root,root)
 
 %changelog
+* Wed Feb 05 2014 Davide Principi <davide.principi@nethesis.it> - 1.1.1-1.ns6
+- NethCamp 2014 - Task #2618 [NethServer]
+- Update all inline help documentation - Task #1780 [NethServer]
+
 * Wed Dec 18 2013 Davide Principi <davide.principi@nethesis.it> - 1.1.0-1.ns6
 - Service supervision with Upstart - Feature #2014 [NethServer]
 
