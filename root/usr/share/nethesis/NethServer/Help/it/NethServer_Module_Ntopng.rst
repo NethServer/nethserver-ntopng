@@ -10,8 +10,11 @@ Abilita ntopng
     Abilitando ntopng, tutto il traffico passante per le interfacce di
     rete verrà analizzato. Può causare un rallentamento della rete e un
     aumento del carico di sistema.
-Porta
+Porta interfaccia web
     Porta su cui raggiungere l'interfaccia web di ntopng.
-Password per l'utente 'admin'
-    Password dell'utente amministratore. Questa password non è legata in
+Abilita atutenticazione
+    Quand l'autenticazione è abilitata, l'interfaccia web richiederà
+    l'inserimento della password per l'utente 'admin'.
+Password
+    Password dell'utente 'admin'. Questa password non è legata in
     alcun modo alla password di amministratore del sistema.
