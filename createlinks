@@ -33,6 +33,7 @@ event_templates("nethserver-ntopng-update", qw(
 ));
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
+    nethserver-ntopng-setpasswd 10
 ));
 event_services("nethserver-ntopng-update", qw(
     ntopng restart
@@ -47,6 +48,7 @@ event_templates("nethserver-ntopng-save", qw(
     /var/tmp/ntopng-users.conf
 ));
 event_actions("nethserver-ntopng-save", qw(
+    nethserver-ntopng-setpasswd 10
     firewall-adjust 70
 ));
 event_services("nethserver-ntopng-save", qw(

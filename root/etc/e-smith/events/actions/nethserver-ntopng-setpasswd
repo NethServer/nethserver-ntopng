@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pass=`/sbin/e-smith/config getprop ntopng Password`;
+pass=`echo -n "$pass" | /usr/bin/md5sum | cut -d' ' -f1`
+/usr/bin/redis-cli SET user.admin.password $pass > /dev/null
+
