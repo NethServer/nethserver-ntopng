@@ -37,6 +37,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 %defattr(-,root,root)
 
 %changelog
+* Fri Aug 08 2014 Davide Principi <davide.principi@nethesis.it> - 1.2.0-1.ns6
+- Update ntopng to version 1.1 - Enhancement #2506 [NethServer]
+
 * Wed Feb 26 2014 Davide Principi <davide.principi@nethesis.it> - 1.1.2-1.ns6
 - Revamp web UI style - Enhancement #2656 [NethServer]
 
