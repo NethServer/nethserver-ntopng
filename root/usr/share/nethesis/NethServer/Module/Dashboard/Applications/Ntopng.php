@@ -35,11 +35,13 @@ class Ntopng extends \Nethgui\Module\AbstractModule implements \NethServer\Modul
 
     public function getInfo()
     {
-         $host = explode(':',$_SERVER['HTTP_HOST']);
-         $port = $this->getPlatform()->getDatabase('configuration')->getProp('ntopng', 'TCPPort');
-         return array(
-            'url' => "http://".$host[0].":$port"
-         );
+        $configDb = $this->getPlatform()->getDatabase('configuration');
+        $host = explode(':',$_SERVER['HTTP_HOST']);
+        $port = $configDb->getProp('ntopng', 'TCPPort');
+        return array(
+            'url' => "http://".$host[0].":$port",
+            'status' => $configDb->getProp('ntopng', 'status')
+            );
     }
 }
 
