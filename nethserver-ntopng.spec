@@ -1,7 +1,7 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
 Version: 1.2.0
-Release: 1
+Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
 Source0: %{name}-%{version}.tar.gz
