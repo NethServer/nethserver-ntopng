@@ -10,6 +10,8 @@
     for my $ether ($ndb->interfaces) {
         my $role = $ether->prop('role') || next;
         my $ipaddr = $ether->prop('ipaddr') || next;
+        my $type = $ether->prop('type');
+        next if ($type eq 'alias');
         if ($role ne 'red') {
            $OUT.="-i=".$ether->key."\n";
            push(@nets,esmith::util::computeLocalNetworkShortSpec($ipaddr, $ether->prop('netmask')));
