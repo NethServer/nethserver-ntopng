@@ -56,4 +56,13 @@ event_services("nethserver-ntopng-save", qw(
 ));
 
 
+#
+# Event interface-update
+#
+event_templates("interface-update", qw(
+    /etc/ntopng/ntopng.conf
+));
+event_services("interface-update", qw(
+    ntopng restart
+));
 
