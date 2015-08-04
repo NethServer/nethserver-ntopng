@@ -7,7 +7,7 @@ URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
-Requires: ntopng >= 1.1
+Requires: ntopng >= 2
 Requires: nethserver-redis
 
 BuildRequires: perl
