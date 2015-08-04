@@ -40,13 +40,12 @@ class Ntopng extends \Nethgui\Controller\AbstractController
         parent::initialize();
         $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'ntopng', 'status'));
         $this->declareParameter('Authentication', Validate::SERVICESTATUS, array('configuration', 'ntopng', 'Authentication'));
-        $this->declareParameter('Password', Validate::NOTEMPTY, array('configuration', 'ntopng', 'Password'));
         $this->declareParameter('TCPPort', Validate::PORTNUMBER, array('configuration', 'ntopng', 'TCPPort'));
     }
 
     protected function onParametersSaved($changes)
     {
-        $this->getPlatform()->signalEvent('nethserver-ntopng-save@post-process');
+        $this->getPlatform()->signalEvent('nethserver-ntopng-save');
     }
 
     public function prepareView(\Nethgui\View\ViewInterface $view) 

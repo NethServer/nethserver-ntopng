@@ -1,0 +1,10 @@
+{
+    #
+    # issue 3172 - remove password
+    #            
+    # TODO: Remove on release 6.7
+    #
+
+    $DB->get_prop_and_delete('ntopng', 'Password');
+    '';
+}

@@ -15,6 +15,8 @@ Web interface port
 Enable authentication
     When the authentication is enabled, the web interface will
     require username 'admin' and password.
-Password
-    Password for user 'admin'. This password is not related to
-    the system administrator password.
+    Default password is 'admin'.
+
+    This password is not related to
+    the system administrator password and can be changed
+    from ntopng web interface.
