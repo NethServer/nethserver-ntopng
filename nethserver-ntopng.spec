@@ -22,6 +22,7 @@ NethServer ntopng configuration
 %build
 %{makedocs}
 perl createlinks
+mkdir -p root/var/lib/redis-ntopng
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -35,6 +36,8 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
+%attr(755, nobody, nobody) /var/lib/redis-ntopng
+
 
 %changelog
 * Thu Aug 06 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1

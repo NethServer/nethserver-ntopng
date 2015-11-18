@@ -24,5 +24,6 @@
         $OUT.="-l 1\n";
     }
     $OUT.="-G=/var/run/ntopng/ntopng.pid\n";
-    $OUT.="--community";
+    $OUT.="--community\n";
+    $OUT.="--redis 127.0.0.1:6378\n";
 }
