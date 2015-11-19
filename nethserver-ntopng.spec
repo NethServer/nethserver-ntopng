@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 1.2.3
+Version: 1.3.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -40,6 +40,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Thu Nov 19 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.0-1
+- Ntopng: optimize redis memory usage - Enhancement #3319 [NethServer]
+
 * Thu Aug 06 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.3-1
 - Update ntopng - Enhancement #3225 [NethServer]
 - Bandwidth monitor (ntopng) : remove modify password form  from nethserver interface - Enhancement #3172 [NethServer]
