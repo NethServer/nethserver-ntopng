@@ -6,15 +6,17 @@
     my $device = "";
     my $port = $ntopng{'TCPPort'} || '3000';
     my $auth = $ntopng{'Authentication'} || 'disabled';
+    my @interfaces = split(',', $ntopng{'Interfaces'} || '');
     my $ndb = esmith::NetworksDB->open_ro();
     for my $ether ($ndb->interfaces) {
         my $role = $ether->prop('role') || next;
-        my $ipaddr = $ether->prop('ipaddr') || next;
+        my $ipaddr = $ether->prop('ipaddr');
         my $type = $ether->prop('type');
-        next if ($type eq 'alias');
-        if ($role ne 'red') {
+        if ($type ne 'alias' && grep { $_ eq $ether->key } @interfaces) {
            $OUT.="-i=".$ether->key."\n";
-           push(@nets,esmith::util::computeLocalNetworkShortSpec($ipaddr, $ether->prop('netmask')));
+           if($role ne 'red' && $ipaddr) {
+               push(@nets, esmith::util::computeLocalNetworkShortSpec($ipaddr, $ether->prop('netmask')));
+           }
         }
     }
 

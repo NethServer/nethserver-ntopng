@@ -1,0 +1,19 @@
+{
+    #
+    # If ntopng record already exists, initialize Interfaces prop 
+    # with non-red and non-alias interfaces #3325
+    # 
+
+    use esmith::ConfigDB;
+    use esmith::NetworksDB;
+    my $cdb = esmith::ConfigDB->open() || return;
+    my $ndb = esmith::NetworksDB->open_ro() || return;
+    my $ntopng = $cdb->get('ntopng') || return;
+
+    if( ! grep { 'Interfaces' eq $_ } $ntopng->props) {
+        my $default = join(',', map { $_->key } grep { ($_->prop('role') || '') ne 'red' && ($_->prop('type') || '') ne 'alias' } $ndb->interfaces );
+        $ntopng->set_prop('Interfaces', $default);
+    }
+
+    '';
+}
