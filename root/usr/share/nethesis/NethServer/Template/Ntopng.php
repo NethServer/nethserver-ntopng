@@ -14,7 +14,7 @@ echo $view->fieldsetSwitch('status', 'enabled',  $view::FIELDSETSWITCH_CHECKBOX)
         ->insert($view->panel()->insert($view->textLabel()->setAttribute('template',$T('default_password_label').": admin")))
     )
     ->insert($view->fieldsetSwitch('Authentication', 'disabled'))
-    ->insert($view->panel()->insert($view->literal("URL: <a href='$url' target='_blank'>$url</a>")->setAttribute('hsc', FALSE)))
-;
+    ->insert($view->selector('Interfaces', $view::SELECTOR_MULTIPLE))
+    ->insert($view->panel()->insert($view->literal("URL: <a href='$url' target='_blank'>$url</a>")->setAttribute('hsc', FALSE)));
 
 echo $view->buttonList($view::BUTTON_SUBMIT | $view::BUTTON_HELP);
