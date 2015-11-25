@@ -20,3 +20,5 @@ Enable authentication
     This password is not related to
     the system administrator password and can be changed
     from ntopng web interface.
+Interfaces
+    Interfaces on which ntopng listen to.
