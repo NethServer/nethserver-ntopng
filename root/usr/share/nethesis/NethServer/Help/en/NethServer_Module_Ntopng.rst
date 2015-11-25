@@ -21,4 +21,4 @@ Enable authentication
     the system administrator password and can be changed
     from ntopng web interface.
 Interfaces
-    Interfaces on which ntopng listen to.
+    Interfaces on which ntopng listens to.
