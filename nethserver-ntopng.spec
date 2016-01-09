@@ -13,6 +13,8 @@ Requires: redis
 BuildRequires: perl
 BuildRequires: nethserver-devtools 
 
+Requires: hiredis
+
 %description
 NethServer ntopng configuration
 
