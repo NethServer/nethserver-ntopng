@@ -23,13 +23,14 @@
 use strict;
 use esmith::Build::CreateLinks  qw(:all);
 
+# create empty ntopng.start
+safe_touch("root/etc/ntopng/ntopng.start");
+
 #
 # Event nethserver-ntopng-update 
 #
 event_templates("nethserver-ntopng-update", qw(
     /etc/ntopng/ntopng.conf
-    /etc/init/ntopng.conf
-    /etc/init/redis-ntopng.conf
 ));
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
