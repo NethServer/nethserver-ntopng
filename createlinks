@@ -31,6 +31,7 @@ safe_touch("root/etc/ntopng/ntopng.start");
 #
 event_templates("nethserver-ntopng-update", qw(
     /etc/ntopng/ntopng.conf
+    /etc/ld.so.conf.d/pf_ring.conf
 ));
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
