@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Disable pfring
+/sbin/ldconfig > /dev/null 2>&1
