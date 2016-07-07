@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 1.3.1
+Version: 1.4.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -43,6 +43,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Thu Jul 07 2016 Stefano Fancello <stefano.fancello@nethesis.it> - 1.4.0-1
+- First NS7 release
+
 * Mon Nov 30 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.1-1
 - Specify network interfaces for ntopng - Enhancement #3325 [NethServer]
 
