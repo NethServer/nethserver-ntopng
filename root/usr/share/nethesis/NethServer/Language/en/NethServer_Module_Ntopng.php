@@ -11,3 +11,15 @@ $L['Ntopng_Description'] = 'Bandwidth monitor configuration';
 $L['Authentication_enabled_label'] = 'Enable authentication';
 $L['Authentication_disabled_label'] = 'Disable authentication';
 $L['Interfaces_label'] = 'Interfaces';
+
+$L['NtopngStatus_Title'] = 'Bandwidth usage';
+$L['NtopngStatus_Header'] = 'Real-time bandwidth usage';
+$L['NtopngStatus_ntopng_error_message'] = 'Could not communicate with ntopng. See /var/log/messages for details';
+$L['NtopngStatus_ntopng_disabled_message'] = 'The ntopng service is disabled';
+$L['ntopng_column_name_label'] = 'Name';
+$L['ntopng_column_ip_label'] = 'IP';
+$L['ntopng_column_location_label'] = 'Location';
+$L['ntopng_column_traffic_label'] = 'Traffic';
+$L['ntopng_column_since_label'] = 'Since';
+$L['ntopng_column_thpt_label'] = 'Throughput (bps)';
+$L['ntopng_column_actions_label'] = 'Actions';
