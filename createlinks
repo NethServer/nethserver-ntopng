@@ -37,11 +37,11 @@ event_templates("nethserver-ntopng-update", qw(
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
     nethserver-ntopng-conf 20
-    nethserver-httpd-admin-asyncreload 30
 ));
 event_services("nethserver-ntopng-update", qw(
     ntopng restart
     redis-ntopng restart
+    httpd-admin reload
 ));
 
 
