@@ -6,6 +6,8 @@
     my $device = "";
     my $port = $ntopng{'TCPPort'} || '3000';
     my $auth = $ntopng{'Authentication'} || 'disabled';
+    my $alias = $ntopng{'alias'} || '';
+    my $alerts = $ntopng{'Alerts'} || 'disabled';
     my @interfaces = split(',', $ntopng{'Interfaces'} || '');
     my $ndb = esmith::NetworksDB->open_ro();
     for my $ether ($ndb->interfaces) {
@@ -28,4 +30,10 @@
     $OUT.="-G=/var/run/ntopng/ntopng.pid\n";
     $OUT.="--community\n";
     $OUT.="--redis 127.0.0.1:6378\n";
+    if ($alias ne '') {
+        $OUT.="-Z \"/$alias\"\n";
+    }
+    if ($alerts eq 'disabled') {
+        $OUT .="-H\n";
+    }
 }

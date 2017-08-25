@@ -32,6 +32,7 @@ safe_touch("root/etc/ntopng/ntopng.start");
 event_templates("nethserver-ntopng-update", qw(
     /etc/ntopng/ntopng.conf
     /etc/ld.so.conf.d/pf_ring.conf
+    /etc/httpd/admin-conf.d/ntopng.conf
 ));
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
@@ -40,6 +41,7 @@ event_actions("nethserver-ntopng-update", qw(
 event_services("nethserver-ntopng-update", qw(
     ntopng restart
     redis-ntopng restart
+    httpd-admin reload
 ));
 
 
