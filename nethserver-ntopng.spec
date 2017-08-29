@@ -13,7 +13,6 @@ Requires: redis
 BuildRequires: perl
 BuildRequires: nethserver-devtools 
 
-Requires: hiredis
 Obsoletes: nethserver-bandwidthd
 
 %description
