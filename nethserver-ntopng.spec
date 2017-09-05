@@ -14,6 +14,7 @@ BuildRequires: perl
 BuildRequires: nethserver-devtools 
 
 Obsoletes: nethserver-bandwidthd
+Obsoletes: bandwidthd
 
 %description
 NethServer ntopng configuration
