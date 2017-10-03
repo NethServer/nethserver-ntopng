@@ -4,11 +4,12 @@ After=network-online.target syslog.target redis-ntopng.service
 Requires=redis-ntopng.service
 
 [Service]
-Type=forking
-RemainAfterExit=yes
-ExecStart=/etc/init.d/ntopng start
-ExecStop=/etc/init.d/ntopng stop
-Restart=on-abnormal
+Type=simple
+ConditionPathExists=/etc/ntopng/ntopng.conf
+ConditionPathExists=/etc/ntopng/ntopng.start
+ExecStartPre=/usr/bin/touch /etc/ntopng/ntopng.start
+ExecStart=/usr/bin/ntopng /etc/ntopng/ntopng.conf
+Restart=always
 RestartSec=5
 
 [Install]
