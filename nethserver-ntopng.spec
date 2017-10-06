@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 1.4.1
+Version: 2.0.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -45,6 +45,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Fri Oct 06 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.0-1
+- Ntopng 3  - NethServer/dev#5341
+
 * Thu Jul 21 2016 Davide Principi <davide.principi@nethesis.it> - 1.4.1-1
 - Web UI: missing labels - Bug NethServer/dev#5061 
 
