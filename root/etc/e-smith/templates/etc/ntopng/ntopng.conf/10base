@@ -26,6 +26,8 @@
     $OUT.="-m=".join(',',@nets)."\n";
     if ($auth eq 'disabled') { 
         $OUT.="-l 1\n";
+    } else {
+        $OUT.="-l 0\n";
     }
     $OUT.="-G=/var/run/ntopng/ntopng.pid\n";
     $OUT.="--community\n";
