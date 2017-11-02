@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -45,6 +45,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Thu Nov 02 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.1-1
+- Report Bandwith usage - could not decode ntopng response - Bug NethServer/dev#5368
+
 * Fri Oct 06 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.0-1
 - Ntopng 3  - NethServer/dev#5341
 
