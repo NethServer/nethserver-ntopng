@@ -3,14 +3,8 @@
     use esmith::util;
     my $confdb = esmith::ConfigDB->open;
     my $ntopng = $confdb->get('ntopng') or die "No ntopng db entry found\n";
-    my $alias = $ntopng->prop('alias') || "";
+    my $alias = $ntopng->prop('alias') or die "Ntopng alias not initialized!";
     my $port = $ntopng->prop('TCPPort') || "3000";
-
-    # initialize alias if needed
-    if ($alias eq "") {
-        $alias = esmith::util::genRandomHash();
-        $confdb->set_prop('ntopng','alias',$alias);
-    }
 
     $OUT .= "ProxyPass /$alias http://localhost:$port\n";
     $OUT .= "ProxyPassReverse /$alias http://localhost:$port\n";
