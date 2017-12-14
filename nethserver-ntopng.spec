@@ -7,7 +7,7 @@ URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
-Requires: ntopng-pcap >= 3
+Requires: ntopng
 Requires: redis
 
 BuildRequires: perl
@@ -15,7 +15,6 @@ BuildRequires: nethserver-devtools
 
 Obsoletes: nethserver-bandwidthd
 Obsoletes: bandwidthd
-Obsoletes: ntopng
 
 %description
 NethServer ntopng configuration
