@@ -22,7 +22,9 @@
         }
     }
 
-    $OUT.="-i view: $ntopng{'Interfaces'}\n";
+    if (scalar(@interfaces) > 1) {
+        $OUT.="-i view: $ntopng{'Interfaces'}\n";
+    }
     $OUT.="-w=$port\n";
     $OUT.="-m=".join(',',@nets)."\n";
     if ($auth eq 'disabled') { 
