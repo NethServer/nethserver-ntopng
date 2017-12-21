@@ -33,7 +33,6 @@
         $OUT.="-l 0\n";
     }
     $OUT.="-G=/var/run/ntopng/ntopng.pid\n";
-    $OUT.="--community\n";
     $OUT.="--redis 127.0.0.1:6378\n";
     if ($alias ne '') {
         $OUT.="-Z \"/$alias\"\n";
