@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#
+# Restart ntopng if HTTP port is not reacheable
+# NethServer/dev#5403
+#
+
+port=`/sbin/e-smith/config getprop ntopng TCPPort`
+i=0
+MAX=5
+
+while [ $i -lt 5 ]; do
+    if curl -s http://localhost:$port 2>/dev/null; then
+        exit 0
+    else
+        sleep 1
+        let i+=1
+    fi
+done
+
+systemctl restart ntopng

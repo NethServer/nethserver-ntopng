@@ -36,6 +36,7 @@ event_templates("nethserver-ntopng-update", qw(
 event_actions("nethserver-ntopng-update", qw(
     initialize-default-databases 00
     nethserver-ntopng-conf 02
+    nethserver-ntopng-check 98
 ));
 event_services("nethserver-ntopng-update", qw(
     ntopng restart
