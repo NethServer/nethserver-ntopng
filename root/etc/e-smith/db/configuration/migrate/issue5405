@@ -1,0 +1,12 @@
+{
+    #
+    # Remove unused redis-ntopng key
+    # 
+
+    use esmith::ConfigDB;
+    my $cdb = esmith::ConfigDB->open() || return;
+    my $redis = $cdb->get('redis-ntopng') || return;
+    $redis->delete();
+
+    '';
+}
