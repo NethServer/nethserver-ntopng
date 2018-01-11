@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 2.0.2
+Version: 2.1.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -45,6 +45,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Thu Jan 11 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.1.0-1
+- ntopng 3: use upstream packages - NethServer/dev#5403
+
 * Wed Nov 29 2017 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.0.2-1
 - config: move alias prop initialization to an action - NethServer/nethserver-ntopng#6
 
