@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name} 
@@ -45,6 +45,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Wed May 16 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.1.1-1
+- Avoid daily email from cron if ntopng is installed but never started - NethServer/nethserver-ntopng#13
+
 * Thu Jan 11 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.1.0-1
 - ntopng 3: use upstream packages - NethServer/dev#5403
 
