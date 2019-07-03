@@ -3,7 +3,7 @@ Name: nethserver-ntopng
 Version: 2.1.1
 Release: 1%{?dist}
 License: GPL
-URL: %{url_prefix}/%{name} 
+URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
@@ -11,7 +11,7 @@ Requires: ntopng
 Requires: redis
 
 BuildRequires: perl
-BuildRequires: nethserver-devtools 
+BuildRequires: nethserver-devtools
 
 Obsoletes: nethserver-bandwidthd
 Obsoletes: bandwidthd
@@ -31,6 +31,15 @@ mkdir -p root/var/lib/redis-ntopng
 %install
 rm -rf %{buildroot}
 (cd root; find . -depth -print | cpio -dump %{buildroot})
+
+mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
+mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
+mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
+cp -a manifest.json %{buildroot}/usr/share/cockpit/%{name}/
+cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
+cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
+cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
+
 %{genfilelist} %{buildroot} --dir /var/run/ntopng "%attr(0755,nobody,nobody)"  > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
@@ -61,7 +70,7 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 - Ntopng 3  - NethServer/dev#5341
 
 * Thu Jul 21 2016 Davide Principi <davide.principi@nethesis.it> - 1.4.1-1
-- Web UI: missing labels - Bug NethServer/dev#5061 
+- Web UI: missing labels - Bug NethServer/dev#5061
 
 * Thu Jul 07 2016 Stefano Fancello <stefano.fancello@nethesis.it> - 1.4.0-1
 - First NS7 release
