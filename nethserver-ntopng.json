@@ -1,0 +1,26 @@
+{
+  "id": "nethserver-ntopng",
+  "name": "nTopNG",
+  "summary": "Provides nTopNG for NethServer",
+  "description": "Provides nTopNG for NethServer",
+  "url": "",
+  "homepage": "https://github.com/NethServer/nethserver-ntopng",
+  "provides": ["nethserver-ntopng"],
+  "release": {
+    "version": "1.0.0"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/NethServer/dev/issues"
+  },
+  "author": {
+    "name": "Edoardo Spadoni",
+    "url": "https://github.com/NethServer/nethserver-ntopng",
+    "email": "edoardo.spadoni@nethesis.it"
+  },
+  "infoapi": {
+    "path": "nethserver-ntopng/read"
+  },
+  "icon": "logo.png",
+  "external": true
+}
