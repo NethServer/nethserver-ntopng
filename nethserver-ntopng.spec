@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -54,6 +54,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Tue Jul 09 2019 Davide Principi <davide.principi@nethesis.it> - 2.1.2-1
+- Cockpit legacy apps implementation - NethServer/dev#5782
+
 * Wed May 16 2018 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.1.1-1
 - Avoid daily email from cron if ntopng is installed but never started - NethServer/nethserver-ntopng#13
 
