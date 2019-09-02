@@ -26,6 +26,7 @@ NethServer ntopng configuration
 %build
 %{makedocs}
 perl createlinks
+sed -i 's/_RELEASE_/%{version}/' %{name}.json
 mkdir -p root/var/lib/redis-ntopng
 
 %install
