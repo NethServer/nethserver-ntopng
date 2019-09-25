@@ -3,5 +3,5 @@
 #
 Cmnd_Alias NSAPI_NETHSERVER_NTOPNG = \
     /usr/libexec/nethserver/api/nethserver-ntopng/read
-￼
+
 Defaults!NSAPI_NETHSERVER_NTOPNG !requiretty
