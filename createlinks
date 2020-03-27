@@ -68,3 +68,9 @@ event_services("interface-update", qw(
     ntopng restart
 ));
 
+#
+# Event post-restore-config
+#
+event_actions("post-restore-config", qw(
+    nethserver-ntopng-network-reset 03
+));
