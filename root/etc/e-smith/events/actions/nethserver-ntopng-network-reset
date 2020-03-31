@@ -22,7 +22,6 @@
 
 use warnings;
 use strict;
-use esmith::NetworksDB;
 use esmith::ConfigDB;
 
 my $cdb = esmith::ConfigDB->open();
