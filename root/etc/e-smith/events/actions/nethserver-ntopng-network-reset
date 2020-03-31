@@ -30,5 +30,4 @@ my $cdb = esmith::ConfigDB->open();
 if (grep(/^--skip-network$/, @ARGV)) {
     $cdb->set_prop('ntopng', 'status', 'disabled');
     $cdb->set_prop('ntopng', 'Interfaces', '');
-
 }
