@@ -28,6 +28,7 @@ use esmith::ConfigDB;
 my $cdb = esmith::ConfigDB->open();
 
 if (grep(/^--skip-network$/, @ARGV)) {
+    # Completely disable ntopng
     $cdb->set_prop('ntopng', 'status', 'disabled');
     $cdb->set_prop('ntopng', 'Interfaces', '');
 }
