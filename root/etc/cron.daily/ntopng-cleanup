@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Delete files not updated in the last 30 days
-[ -d /var/tmp/ntopng/ ] && /usr/bin/find /var/tmp/ntopng/* -mindepth 1 -type f -mtime +30 -delete > /dev/null
+[ -d /var/tmp/ntopng/ ] && /usr/bin/find /var/tmp/ntopng/* -mindepth 1 -type f -mtime +30 -delete &> /dev/null
