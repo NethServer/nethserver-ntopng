@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# top_talkers.db grows too much, just clean it once in a while
+
+/usr/bin/find /var/tmp/ntopng/ -name top_talkers.db -delete
+/usr/bin/systemctl restart ntopng
