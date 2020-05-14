@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -56,6 +56,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 
 %changelog
+* Thu May 14 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.2.2-1
+- Ntopng fill the disk - Bug NethServer/dev#6158
+
 * Tue Apr 07 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.2.1-1
 - Restore configuration without network override - NethServer/dev#6099
 
