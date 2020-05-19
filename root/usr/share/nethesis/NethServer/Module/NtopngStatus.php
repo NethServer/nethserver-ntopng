@@ -32,22 +32,6 @@ class NtopngStatus extends \Nethgui\Controller\AbstractController implements \Ne
         );
     }
 
-    private function formatSince($s)
-    {
-        preg_match('/(?:(?P<d>\d+) d[a-z]*)?[\s,]*(?:(?P<h>\d+) h[a-z]*)?[\s,]+(?:(?P<m>\d+) m[a-z]*)?[\s,]+(?:(?P<s>\d+) s[a-z]*)?/i', $s, $matches);
-        $out = '';
-        foreach(array('d', 'h', 'm', 's') as $u) {
-            if(isset($matches[$u]) && $matches[$u] > 0) {
-                $emit = TRUE;
-            }
-
-            if($emit) {
-                $out .= sprintf("%d$u ", $matches[$u]);
-            }
-        }
-        return $out;
-    }
-
     private function readTalkers($view)
     {
         if( ! function_exists('curl_version')) {
@@ -98,7 +82,7 @@ class NtopngStatus extends \Nethgui\Controller\AbstractController implements \Ne
                 str_replace('&nbsp;', '', strip_tags($row['column_ip'])),
                 strtoupper(str_replace('bit/s', '', strip_tags($row['column_thpt']))),
                 strip_tags($row['column_traffic']),
-                $this->formatSince(strip_tags($row['column_since'])),
+                strip_tags($row['column_since']),
                 array(
                     array($view->translate('Show'), $view->getModuleUrl() . '?act=Show&url=' . urlencode($showUrl))
                 ),
