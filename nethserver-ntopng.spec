@@ -7,7 +7,7 @@ URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
-Requires: ntopng
+Requires: ntopng >= 4
 Requires: redis
 
 BuildRequires: perl
