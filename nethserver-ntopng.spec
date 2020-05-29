@@ -41,7 +41,7 @@ cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
-%{genfilelist} %{buildroot} --dir /var/run/ntopng "%attr(0755,nobody,nobody)"  \
+%{genfilelist} %{buildroot} \
  --file /etc/sudoers.d/50_nsapi_nethserver_ntopng 'attr(0440,root,root)' > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
