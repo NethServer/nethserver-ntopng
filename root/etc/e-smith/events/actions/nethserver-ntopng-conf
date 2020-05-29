@@ -32,7 +32,3 @@ if ($alias eq "") {
     $confdb->set_prop('ntopng','alias',$alias);
 }
 
-if ( ! -l "/usr/local/bin/ntopng" ) {
-    link("/usr/bin/ntopng", "/usr/local/bin/ntopng");
-}
-
