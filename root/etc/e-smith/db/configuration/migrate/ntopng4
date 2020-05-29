@@ -1,0 +1,11 @@
+{
+    #
+    # Remove unused Alerts prop
+    # 
+
+    use esmith::ConfigDB;
+    my $cdb = esmith::ConfigDB->open() || return;
+    $cdb->get_prop_and_delete('ntopng', 'Alerts');
+
+    '';
+}
