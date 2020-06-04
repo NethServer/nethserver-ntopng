@@ -5,6 +5,9 @@ Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
+# Build Source1 by executing prep-sources
+Source1: %{name}-ui.tar.gz
+
 BuildArch: noarch
 
 Requires: ntopng >= 4
@@ -36,8 +39,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
 mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
 mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
-cp -a manifest.json %{buildroot}/usr/share/cockpit/%{name}/
-cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
+tar xf %{SOURCE1} -C %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
@@ -53,7 +55,7 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 %defattr(-,root,root)
 %attr(755, nobody, nobody) /var/lib/redis-ntopng
 %dir %{_nseventsdir}/%{name}-update
-
+/usr/libexec/nethserver/api/%{name}/
 
 %changelog
 * Thu May 14 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.2.2-1
