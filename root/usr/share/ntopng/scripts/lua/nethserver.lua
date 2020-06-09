@@ -205,29 +205,12 @@ for _key, _value in pairsByKeys(vals, funct) do
 
    record["name"] = column_name
 
-   if value["vlan"] > 0 then
-      record["column_vlan"] = value["vlan"]
-   end
-
-   record["since"] = now-value["seen.first"] + 1
-
    record["throughput"] = 0
    if((value["throughput_trend_"..throughput_type] ~= nil) and
       (value["throughput_trend_"..throughput_type] > 0)) then
 
       record["throughput"] = 8*value["throughput_bps"] --bits
-
-      if(value["throughput_trend_"..throughput_type] == 1) then -- upload
-         record["direction"] = "upload"
-      elseif(value["throughput_trend_"..throughput_type] == 2) then -- download
-         record["direction"] = "download"
-      elseif(value["throughput_trend_"..throughput_type] == 3) then --none
-         record["direction"] = ""
-      end
    end
-
-   record["traffic"] = value["bytes.sent"]+value["bytes.rcvd"]
-   record["flows"] = value["active_flows.as_client"] + value["active_flows.as_server"]
 
    formatted_res[#formatted_res + 1] = record
 end -- for
