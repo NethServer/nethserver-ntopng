@@ -1,26 +1,23 @@
 {
   "id": "nethserver-ntopng",
-  "name": "nTopNG",
-  "summary": "Provides nTopNG for NethServer",
-  "description": "Provides nTopNG for NethServer",
+  "name": "Bandwidth monitor",
+  "summary": "Provides ntopng for NethServer",
+  "description": "Provides ntopng for NethServer",
   "url": "",
   "homepage": "https://github.com/NethServer/nethserver-ntopng",
   "provides": ["nethserver-ntopng"],
   "release": {
     "version": "_RELEASE_"
   },
+  "tags": ["ntopng", "nethserver", "network", "analyzer"],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/NethServer/dev/issues"
   },
   "author": {
-    "name": "Edoardo Spadoni",
+    "name": "Edoardo Spadoni, Andrea Leardini",
     "url": "https://github.com/NethServer/nethserver-ntopng",
-    "email": "edoardo.spadoni@nethesis.it"
+    "email": "edoardo.spadoni@nethesis.it, andrea.leardini@nethesis.it"
   },
-  "infoapi": {
-    "path": "nethserver-ntopng/read"
-  },
-  "icon": "logo.png",
-  "external": true
+  "icon": "logo.png"
 }
