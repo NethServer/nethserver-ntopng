@@ -37,3 +37,6 @@ if ( system("/usr/bin/systemctl is-enabled --quiet redis &>/dev/null") == 0 &&
     system("/usr/bin/systemctl is-active --quiet redis &>/dev/null") > 0 ) {
     system("/usr/bin/systemctl disable redis");
 }
+
+# Migrate data from ntopng 3, if any
+system("/etc/e-smith/events/actions/nethserver-ntopng-3-migrate");

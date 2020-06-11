@@ -22,7 +22,7 @@
     }
 
     if (scalar(@interfaces) > 1) {
-        $OUT.="-i view: $ntopng{'Interfaces'}\n";
+        $OUT.="-i view:all\n";
     }
     $OUT.="-w=$port\n";
     $OUT.="-m=".join(',',@nets)."\n";

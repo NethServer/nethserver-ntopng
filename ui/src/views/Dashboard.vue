@@ -178,8 +178,11 @@ import Dygraph from "dygraphs";
 export default {
   name: "Dashboard",
   props: {},
-  mounted() {
-    this.getConfig();
+  updated() {
+    if (!this.initialized) {
+      this.initialized = true;
+      this.getConfig();
+    }
   },
   beforeRouteLeave(to, from, next) {
     clearInterval(this.tablesInterval);
@@ -194,6 +197,8 @@ export default {
       UPDATE_TRAFFIC_BY_PROTOCOL_INTERVAL: 5000,
       TRAFFIC_BY_INTERFACE_SAMPLES: 60,
       TRAFFIC_BY_PROTOCOL_SAMPLES: 60,
+      TRAFFIC_BY_PROTOCOL_MAX_PROTOCOLS: 5,
+      initialized: false,
       isLoaded: {
         config: false,
         topLocalHosts: false,
@@ -336,8 +341,8 @@ export default {
                 ylabel: context.$i18n.t("dashboard.kbps"),
                 axisLineColor: "white",
                 labelsDiv: document.getElementById("traffic-interface-legend"),
-                labelsSeparateLines: true,
                 legend: "always",
+                legendFormatter: context.legendFormatter,
                 axes: {
                   y: {
                     axisLabelFormatter: function(y) {
@@ -478,9 +483,8 @@ export default {
                 ylabel: context.$i18n.t("dashboard.kbps"),
                 axisLineColor: "white",
                 labelsDiv: document.getElementById("traffic-protocol-legend"),
-                labelsSeparateLines: true,
-                labelsShowZeroValues: false,
-                hideOverlayOnMouseOut: true,
+                legend: "always",
+                legendFormatter: context.legendFormatter,
                 axes: {
                   y: {
                     axisLabelFormatter: function(y) {
@@ -511,6 +515,73 @@ export default {
           context.isLoaded.trafficByProtocol = true;
         }
       );
+    },
+    legendFormatter(data) {
+      if (data.x == null) {
+        // no selection
+        return "";
+      }
+
+      // discard protocols with no throughput
+      data.series = data.series.filter(s => s.y);
+
+      if (data.series.length > this.TRAFFIC_BY_PROTOCOL_MAX_PROTOCOLS) {
+        //  merge the protocols with little throughput
+        data.series.sort((a, b) => (a.y > b.y ? 1 : -1));
+
+        let otherTraffic = 0;
+
+        for (
+          let i = 0;
+          i < data.series.length - this.TRAFFIC_BY_PROTOCOL_MAX_PROTOCOLS + 1;
+          i++
+        ) {
+          let s = data.series[i];
+          s.discard = true;
+          otherTraffic += s.y;
+        }
+        data.series = data.series.filter(s => !s.discard);
+
+        const otherSeries = {
+          color: "rgb(128, 128, 128)",
+          labelHTML: this.$i18n.t("dashboard.others"),
+          y: otherTraffic
+        };
+        data.series.push(otherSeries);
+      }
+      data.series.sort((a, b) => (a.y < b.y ? 1 : -1));
+      data.series.forEach(s => {
+        s.yHTML = this.$options.filters.bpsFormat(s.y * 1000);
+      });
+
+      const time = new Date(data.x);
+      let hours = time.getHours();
+      let minutes = time.getMinutes();
+      let seconds = time.getSeconds();
+      hours = hours > 9 ? hours : "0" + hours;
+      minutes = minutes > 9 ? minutes : "0" + minutes;
+      seconds = seconds > 9 ? seconds : "0" + seconds;
+      const formattedTime = hours + ":" + minutes + ":" + seconds;
+
+      const legend =
+        "<strong>" +
+        formattedTime +
+        "</strong>" +
+        "<br>" +
+        data.series
+          .map(
+            s =>
+              '<span style="font-weight: bold; color: ' +
+              s.color +
+              ';">' +
+              s.labelHTML +
+              "</span>: <strong>" +
+              s.yHTML +
+              "</strong>"
+          )
+          .join("<br>");
+
+      return legend;
     },
     updateTrafficByProtocolChart() {
       const context = this;
@@ -595,8 +666,7 @@ export default {
       nethserver.exec(
         ["nethserver-ntopng/dashboard/read"],
         {
-          action: "top-local-hosts",
-          host: window.location.hostname
+          action: "top-local-hosts"
         },
         null,
         function(success) {

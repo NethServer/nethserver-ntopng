@@ -27,17 +27,26 @@ import simplejson
 import time
 
 
-def get_top_hosts(mode):
-    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/nethserver.lua?mode={}&currentPage=1&sortColumn=column_thpt&sortOrder=desc&long_names=1".format(
-        mode)
+def get_web_interface_port():
+    bash_command = "/sbin/e-smith/config getprop ntopng TCPPort"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    return output.rstrip()
 
+
+def get_top_hosts(mode):
+    port = get_web_interface_port()
+    bash_command = "/usr/bin/curl -s http://localhost:{}/lua/nethserver.lua?mode={}&currentPage=1&sortColumn=column_thpt&sortOrder=desc&long_names=1".format(
+        port, mode)
     process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     return simplejson.loads(output)
 
 
 def get_traffic_by_interface():
-    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/rest/get/interface/data.lua?iffilter=all"
+    port = get_web_interface_port()
+    bash_command = "/usr/bin/curl -s http://localhost:{}/lua/rest/get/interface/data.lua?iffilter=all".format(
+        port)
     process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     output_json = simplejson.loads(output)
@@ -60,7 +69,9 @@ def get_traffic_by_interface():
 
 
 def get_traffic_by_protocol():
-    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/if_stats_ndpi.lua?format=json"
+    port = get_web_interface_port()
+    bash_command = "/usr/bin/curl -s http://localhost:{}/lua/if_stats_ndpi.lua?format=json".format(
+        port)
     process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     output_json = simplejson.loads(output)

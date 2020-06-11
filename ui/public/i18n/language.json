@@ -32,7 +32,8 @@
         "traffic_by_interface": "Traffic by interface",
         "traffic_by_protocol": "Traffic by protocol",
         "kbps": "kbit/s",
-        "no_data": "No data"
+        "no_data": "No data",
+        "others": "Others"
     },
     "settings": {
         "title": "Settings",

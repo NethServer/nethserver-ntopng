@@ -112,7 +112,7 @@ if(tracked ~= nil) then tracked = tonumber(tracked) else tracked = 0 end
 
 if((mode == nil) or (mode == "")) then mode = "all" end
 
-interface.select(ifname)
+interface.select('view:all')
 
 local to_skip = (currentPage-1) * perPage
 
