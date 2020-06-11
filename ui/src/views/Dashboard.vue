@@ -55,7 +55,7 @@
       <div class="col-md-6">
         <h3>{{$t('dashboard.top_local_hosts')}}</h3>
         <div v-show="!isLoaded.topLocalHosts">
-          <div class="blank-slate-pf padding-30">
+          <div class="blank-slate-pf">
             <div class="blank-slate-pf-icon">
               <span class="fa fa-table"></span>
             </div>
@@ -97,7 +97,7 @@
       <div class="col-md-6">
         <h3>{{$t('dashboard.top_remote_hosts')}}</h3>
         <div v-show="!isLoaded.topRemoteHosts">
-          <div class="blank-slate-pf padding-30">
+          <div class="blank-slate-pf">
             <div class="blank-slate-pf-icon">
               <span class="fa fa-table"></span>
             </div>
@@ -144,9 +144,9 @@
           <div id="traffic-interface-legend" class="legend"></div>
         </h3>
         <div v-show="!isLoaded.trafficByInterface">
-          <div class="blank-slate-pf padding-30">
+          <div class="blank-slate-pf">
             <div class="blank-slate-pf-icon">
-              <span class="fa fa-pie-chart"></span>
+              <span class="fa fa-line-chart"></span>
             </div>
             <h4 class="chart-title gray">{{ $t('dashboard.no_data') }}</h4>
           </div>
@@ -159,9 +159,9 @@
           <div id="traffic-protocol-legend" class="legend"></div>
         </h3>
         <div v-show="!isLoaded.trafficByProtocol">
-          <div class="blank-slate-pf padding-30">
+          <div class="blank-slate-pf">
             <div class="blank-slate-pf-icon">
-              <span class="fa fa-pie-chart"></span>
+              <span class="fa fa-line-chart"></span>
             </div>
             <h4 class="chart-title gray">{{ $t('dashboard.no_data') }}</h4>
           </div>
