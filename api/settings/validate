@@ -1,0 +1,128 @@
+#!/usr/bin/python
+
+#
+# Copyright (C) 2020 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+import sys
+import fileinput
+import simplejson
+import subprocess
+
+
+def invalid_attribute(parameter, error):
+    return {"parameter": parameter, "error": error, "value": ""}
+
+
+def get_networks():
+    bash_command = "/sbin/e-smith/db networks getjson"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    all_networks = simplejson.loads(output)
+    networks = []
+
+    for network in all_networks:
+        if network["type"] in ["ethernet", "bridge", "bond", "vlan"]:
+            networks.append(network["name"])
+
+    return networks
+
+
+line = fileinput.input()[0].rstrip()
+input_json = simplejson.loads(line)
+invalid_attributes = []
+
+status_p = 'status'
+tcp_port_p = 'TCPPort'
+interfaces_p = 'Interfaces'
+authentication_p = 'Authentication'
+
+status = ''
+tcp_port = ''
+interfaces = ''
+authentication = ''
+
+# status
+if (status_p not in input_json) or (not input_json[status_p]):
+    invalid_attributes.append(invalid_attribute(status_p, "missing"))
+else:
+    status = input_json[status_p]
+
+    if status not in ['enabled', 'disabled']:
+        invalid_attributes.append(invalid_attribute(status_p, "invalid"))
+
+# perform all other validations only if status == 'enabled'
+if status == 'enabled':
+    # tcp_port
+    if (tcp_port_p not in input_json) or (not input_json[tcp_port_p]):
+        invalid_attributes.append(invalid_attribute(tcp_port_p, "missing"))
+    else:
+        tcp_port = input_json[tcp_port_p]
+
+        try:
+            tcp_port = int(tcp_port)
+
+            if not (tcp_port >= 1 and tcp_port <= 65535):
+                invalid_attributes.append(
+                    invalid_attribute(tcp_port_p, "invalid"))
+        except ValueError as e:
+            invalid_attributes.append(invalid_attribute(tcp_port_p, "invalid"))
+
+    # interfaces
+    if interfaces_p not in input_json:
+        invalid_attributes.append(invalid_attribute(interfaces_p, "missing"))
+    else:
+        interfaces = input_json[interfaces_p].split(",")
+        networks = get_networks()
+
+        for interface in interfaces:
+            if interface and (not interface in networks):
+                invalid_attributes.append(
+                    invalid_attribute(interfaces_p, "invalid"))
+
+        # check duplicates in interfaces
+        if len(interfaces) != len(set(interfaces)):
+            invalid_attributes.append(
+                invalid_attribute(interfaces_p, "duplicates"))
+
+    # authentication
+    if (authentication_p not in input_json) or (not input_json[authentication_p]):
+        invalid_attributes.append(
+            invalid_attribute(authentication_p, "missing"))
+    else:
+        authentication = input_json[authentication_p]
+
+        if authentication not in ['enabled', 'disabled']:
+            invalid_attributes.append(
+                invalid_attribute(authentication_p, "invalid"))
+
+# output
+success = len(invalid_attributes) == 0
+
+if success:
+    output = {"state": "success"}
+else:
+    output = {"type": "NotValid", "message": "validation_failed",
+              "attributes": invalid_attributes}
+
+output_json = simplejson.dumps(output)
+print(output_json)
+
+if not success:
+    sys.exit(1)

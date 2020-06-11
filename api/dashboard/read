@@ -1,0 +1,108 @@
+#!/usr/bin/python
+
+#
+# Copyright (C) 2020 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+import sys
+import fileinput
+import subprocess
+import simplejson
+import time
+
+
+def get_top_hosts(mode):
+    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/nethserver.lua?mode={}&currentPage=1&sortColumn=column_thpt&sortOrder=desc&long_names=1".format(
+        mode)
+
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    return simplejson.loads(output)
+
+
+def get_traffic_by_interface():
+    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/rest/get/interface/data.lua?iffilter=all"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    output_json = simplejson.loads(output)
+    epoch = int(round(time.time()))
+    data = [epoch]
+    labels = ['time']
+
+    for key, iface in output_json.iteritems():
+        iface_name = iface['ifname']
+
+        # skip views, they are not real interfaces
+        if 'view:' in iface_name:
+            continue
+
+        # convert from bytes per second to bits per second
+        data.append(iface['throughput_bps'] * 8)
+        labels.append(iface_name)
+
+    return {'data': [data], 'labels': labels}
+
+
+def get_traffic_by_protocol():
+    bash_command = "/usr/bin/curl -s http://localhost:3000/lua/if_stats_ndpi.lua?format=json"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    output_json = simplejson.loads(output)
+    epoch = int(round(time.time()))
+    traffic = {}
+
+    for elem in output_json:
+        protocol = elem['proto']
+        # convert from bytes per second to bits per second
+        throughput = elem['throughput_bps'] * 8
+
+        if throughput == 0:
+            continue
+
+        traffic[protocol] = throughput
+
+    return {'time': epoch, 'traffic': traffic}
+
+
+try:
+    line = fileinput.input()[0].rstrip()
+    input_json = simplejson.loads(line)
+    action = input_json["action"]
+
+    if action == 'top-local-hosts':
+        top_local_hosts = get_top_hosts('local')
+        output = simplejson.dumps({'topLocalHosts': top_local_hosts})
+        print(output)
+    elif action == 'top-remote-hosts':
+        top_remote_hosts = get_top_hosts('remote')
+        output = simplejson.dumps({'topRemoteHosts': top_remote_hosts})
+        print(output)
+    elif action == 'traffic-by-interface':
+        traffic_by_interface = get_traffic_by_interface()
+        output = simplejson.dumps({'trafficByInterface': traffic_by_interface})
+        print(output)
+    elif action == 'traffic-by-protocol':
+        traffic_by_protocol = get_traffic_by_protocol()
+        output = simplejson.dumps({'trafficByProtocol': traffic_by_protocol})
+        print(output)
+    else:
+        raise ValueError("Invalid action")
+except Exception as e:
+    print simplejson.dumps({'error': "%s" % e})
+    sys.exit(1)

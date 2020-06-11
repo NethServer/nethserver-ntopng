@@ -32,7 +32,8 @@ if ($alias eq "") {
     $confdb->set_prop('ntopng','alias',$alias);
 }
 
-if ( ! -l "/usr/local/bin/ntopng" ) {
-    link("/usr/bin/ntopng", "/usr/local/bin/ntopng");
+# Disable redis if is not in use and has been activated from ntopng package
+if ( system("/usr/bin/systemctl is-enabled --quiet redis &>/dev/null") == 0 &&
+    system("/usr/bin/systemctl is-active --quiet redis &>/dev/null") > 0 ) {
+    system("/usr/bin/systemctl disable redis");
 }
-

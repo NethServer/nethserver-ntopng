@@ -23,8 +23,5 @@ Enable authentication
     the system administrator password and can be changed
     from ntopng web interface.
 
-Enable alerts
-    Display network traffic alerts inside ntopng web interface.
-
 Interfaces
     Interfaces on which ntopng listens to.

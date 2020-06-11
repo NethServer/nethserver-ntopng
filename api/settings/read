@@ -1,0 +1,67 @@
+#!/usr/bin/python
+
+#
+# Copyright (C) 2020 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+import sys
+import fileinput
+import subprocess
+import simplejson
+
+
+def get_config():
+    bash_command = "/sbin/e-smith/config getjson ntopng"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    return simplejson.loads(output)
+
+
+def get_networks():
+    bash_command = "/sbin/e-smith/db networks getjson"
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    all_networks = simplejson.loads(output)
+    networks = {}
+
+    for network in all_networks:
+        if 'role' in network['props'] and network['props']['role'] and network['type'] in ['ethernet', 'bridge', 'bond', 'vlan']:
+            networks[network['name']] = network
+
+    return networks
+
+
+try:
+    line = fileinput.input()[0].rstrip()
+    input_json = simplejson.loads(line)
+    action = input_json["action"]
+
+    if action == 'configuration':
+        config = get_config()
+        output = simplejson.dumps({'configuration': config})
+        print(output)
+    elif action == 'networks':
+        networks = get_networks()
+        output = simplejson.dumps({'networks': networks})
+        print(output)
+    else:
+        raise ValueError("Invalid action")
+except Exception as e:
+    print simplejson.dumps({'error': "%s" % e})
+    sys.exit(1)

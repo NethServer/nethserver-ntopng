@@ -2,6 +2,9 @@
 # nsapi_nethserver_ntopng
 #
 Cmnd_Alias NSAPI_NETHSERVER_NTOPNG = \
-    /usr/libexec/nethserver/api/nethserver-ntopng/read
+    /usr/libexec/nethserver/api/nethserver-ntopng/dashboard/read, \
+    /usr/libexec/nethserver/api/nethserver-ntopng/settings/read, \
+    /usr/libexec/nethserver/api/nethserver-ntopng/settings/update, \
+    /usr/libexec/nethserver/api/nethserver-ntopng/settings/validate
 
 Defaults!NSAPI_NETHSERVER_NTOPNG !requiretty

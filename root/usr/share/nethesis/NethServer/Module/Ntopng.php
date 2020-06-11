@@ -43,7 +43,6 @@ class Ntopng extends \Nethgui\Controller\AbstractController
 
         $this->declareParameter('status', Validate::SERVICESTATUS, array('configuration', 'ntopng', 'status'));
         $this->declareParameter('Authentication', Validate::SERVICESTATUS, array('configuration', 'ntopng', 'Authentication'));
-        $this->declareParameter('Alerts', Validate::SERVICESTATUS, array('configuration', 'ntopng', 'Alerts'));
         $this->declareParameter('TCPPort', Validate::PORTNUMBER, array('configuration', 'ntopng', 'TCPPort'));
         $this->declareParameter('Interfaces', $this->createValidator()->collectionValidator($this->createValidator()->memberOf($validInterfaces)), array('configuration', 'ntopng', 'Interfaces', ','));
     }

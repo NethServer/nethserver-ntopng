@@ -18,7 +18,6 @@ Database Reference
 
 Properties:
 
-- ``Alerts``: can be ``enabled`` or ``disabled``. Default is ``disabled``
 - ``Authentication``: can be ``enabled`` or ``disabled``. Default is ``disabled``
 - ``Interfaces``: comma-separeted list of monitored interfaces
 - ``alias``: auto-generated alias to be used as proxypass URL on httpd-admin
@@ -27,7 +26,6 @@ Properties:
 ::
 
  ntopng=service
-    Alerts=disabled
     Authentication=disabled
     Interfaces=br0
     TCPPort=3000

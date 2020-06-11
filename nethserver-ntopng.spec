@@ -5,9 +5,12 @@ Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
 Source0: %{name}-%{version}.tar.gz
+# Build Source1 by executing prep-sources
+Source1: %{name}-ui.tar.gz
+
 BuildArch: noarch
 
-Requires: ntopng
+Requires: ntopng >= 4
 Requires: redis
 
 BuildRequires: perl
@@ -36,12 +39,11 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
 mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
 mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
-cp -a manifest.json %{buildroot}/usr/share/cockpit/%{name}/
-cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
+tar xf %{SOURCE1} -C %{buildroot}/usr/share/cockpit/%{name}/
 cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
 cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
-%{genfilelist} %{buildroot} --dir /var/run/ntopng "%attr(0755,nobody,nobody)"  \
+%{genfilelist} %{buildroot} \
  --file /etc/sudoers.d/50_nsapi_nethserver_ntopng 'attr(0440,root,root)' > %{name}-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
@@ -53,7 +55,7 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 %defattr(-,root,root)
 %attr(755, nobody, nobody) /var/lib/redis-ntopng
 %dir %{_nseventsdir}/%{name}-update
-
+/usr/libexec/nethserver/api/%{name}/
 
 %changelog
 * Thu May 14 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 2.2.2-1

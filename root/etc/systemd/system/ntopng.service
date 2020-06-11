@@ -1,15 +1,15 @@
 [Unit]
 Description=ntopng high-speed web-based traffic monitoring and analysis tool
 After=network-online.target syslog.target redis-ntopng.service pf_ring.service cluster.service
-Wants=pf_ring.service cluster.service
 BindsTo=redis-ntopng.service
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sh -c '/bin/sed "/-e.*$\\|-G.*\\|--daemon.*\\|--pid.*/s/^/#/" /etc/ntopng/ntopng.conf > /run/ntopng.conf'
+ExecStartPre=/bin/sh -c '/usr/bin/ntopng-utils-manage-config -a check-restore  && /usr/bin/ntopng-utils-manage-config -a restore || true'
+ExecStartPre=/bin/sh -c '/bin/sed "/^[ ]*-e.*$\\|^[ ]*-G.*\\|^[ ]*--daemon.*\\|^[ ]*--pid.*/s/^/#/" /etc/ntopng/ntopng.conf > /run/ntopng.conf'
 ExecStart=/usr/local/bin/ntopng /run/ntopng.conf
 ExecStopPost=-/bin/rm -rf /run/ntopng.conf
-Restart=on-abnormal
+Restart=on-failure
 RestartSec=5
 
 [Install]
