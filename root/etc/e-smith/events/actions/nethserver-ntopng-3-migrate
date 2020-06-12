@@ -23,9 +23,15 @@
 # Migrate data from ntopng 3, if any
 
 if [ -d /var/tmp/ntopng ]; then
-  systemctl stop ntopng
-  rm -rf /var/lib/ntopng/
-  mv /var/tmp/ntopng /var/lib/ntopng/
-  chown -R ntopng:ntopng /var/lib/ntopng/
-  systemctl start ntopng
+  /usr/bin/systemctl stop ntopng
+  /usr/bin/rm -rf /var/lib/ntopng/
+  /usr/bin/mv /var/tmp/ntopng /var/lib/ntopng/
+  /usr/bin/chown -R ntopng:ntopng /var/lib/ntopng/
+
+  # Start ntopng if it's enabled
+  /usr/bin/systemctl is-enabled --quiet ntopng &>/dev/null
+
+  if [ $? -eq 0 ]; then
+    /usr/bin/systemctl start ntopng
+  fi
 fi
