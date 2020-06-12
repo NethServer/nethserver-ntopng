@@ -168,7 +168,10 @@ export default {
 }
 
 .legend {
+  color: #555555;
+  background-color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
+  padding: 5px;
   position: absolute;
   right: 3rem;
   text-align: left;

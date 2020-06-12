@@ -1,7 +1,7 @@
-#!/usr/bin/perl
+#!/bin/bash
 
 #
-# Copyright (C) 2017 Nethesis S.r.l.
+# Copyright (C) 2020 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
 #
 # This script is part of NethServer.
@@ -20,20 +20,18 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-use esmith::ConfigDB;
-use esmith::util;
-my $confdb = esmith::ConfigDB->open;
-my $ntopng = $confdb->get('ntopng') or die "No ntopng db entry found\n";
-my $alias = $ntopng->prop('alias') || "";
+# Migrate data from ntopng 3, if any
 
-# initialize alias if needed
-if ($alias eq "") {
-    $alias = esmith::util::genRandomHash();
-    $confdb->set_prop('ntopng','alias',$alias);
-}
+if [ -d /var/tmp/ntopng ]; then
+  /usr/bin/systemctl stop ntopng
+  /usr/bin/rm -rf /var/lib/ntopng/
+  /usr/bin/mv /var/tmp/ntopng /var/lib/ntopng/
+  /usr/bin/chown -R ntopng:ntopng /var/lib/ntopng/
 
-# Disable redis if is not in use and has been enabled from ntopng package
-if ( system("/usr/bin/systemctl is-enabled --quiet redis &>/dev/null") == 0 &&
-    system("/usr/bin/systemctl is-active --quiet redis &>/dev/null") > 0 ) {
-    system("/usr/bin/systemctl disable redis");
-}
+  # Start ntopng if it's enabled
+  /usr/bin/systemctl is-enabled --quiet ntopng &>/dev/null
+
+  if [ $? -eq 0 ]; then
+    /usr/bin/systemctl start ntopng
+  fi
+fi
