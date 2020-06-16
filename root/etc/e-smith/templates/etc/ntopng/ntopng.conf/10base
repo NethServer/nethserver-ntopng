@@ -34,4 +34,5 @@
     if ($alias ne '') {
         $OUT.="-Z \"/$alias\"\n";
     }
+    $OUT.= "-n 1";
 }
