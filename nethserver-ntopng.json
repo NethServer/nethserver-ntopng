@@ -19,5 +19,8 @@
     "url": "https://github.com/NethServer/nethserver-ntopng",
     "email": "edoardo.spadoni@nethesis.it, andrea.leardini@nethesis.it"
   },
+  "infoapi": {
+    "path": "nethserver-ntopng/read"
+  },
   "icon": "logo.png"
 }
