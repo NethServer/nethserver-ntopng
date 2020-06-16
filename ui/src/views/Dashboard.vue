@@ -259,7 +259,7 @@ export default {
             context.config.status = props.status === "enabled";
             context.config.port = parseInt(props.TCPPort);
             context.ntopngUrl =
-              "http://" + window.location.hostname + ":" + context.config.port;
+              "http://" + window.location.hostname + ":980/" + props.alias;
 
             if (context.config.status) {
               context.initTables();
