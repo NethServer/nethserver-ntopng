@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 3.0.0
+Version: 3.0.1
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -58,6 +58,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 /usr/libexec/nethserver/api/%{name}/
 
 %changelog
+* Mon Jun 29 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.0.1-1
+- Enhance interfaces list UI - #24
+
 * Mon Jun 29 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.0.0-1
 - Add ntopng 4 - NethServer/dev#6199
 
