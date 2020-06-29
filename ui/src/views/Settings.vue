@@ -54,8 +54,8 @@
         <div v-show="config.status" class="form-group">
           <label class="col-sm-2 control-label pad-top-xs">{{$t('settings.interfaces')}}</label>
           <div class="col-sm-4">
-            <div id="pf-list-standard" class="list-group list-view-pf interface-list">
-              <div v-for="(network, networkName) in networks" class="list-group-item">
+            <div id="pf-list-standard" class="list-view-pf">
+              <div v-for="(network, networkName) in networks" class="list-group-item network">
                 <input
                   type="checkbox"
                   v-model="networks[networkName].selected"
@@ -282,7 +282,11 @@ export default {
   padding-right: 0;
 }
 
-.interface-list {
-  border: 1px solid lightgray;
+.list-group-item.network {
+  padding-left: 0;
+}
+
+.list-group-item.network:hover {
+  background: none;
 }
 </style>
