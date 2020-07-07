@@ -33,47 +33,20 @@ Properties:
     alias=4de50f46b8d3e5ec829aba759431b48ad8173768
     status=enabled
 
-Build ntopng on CentOS 7
-========================
+Download lates upstream release
+===============================
 
-As root user, make sure to have EPEL repository enabled, then install all required build dependencies: ::
+To download directly from stable repository: ::
 
- yum install git automake gcc libtool libpcap-devel libcurl-devel libsqlite3x-devel mariadb-devel gcc-c++ glib2-devel \
- libxml2-devel rrdtool-devel lua-devel python-devel openldap-devel libnetfilter_queue-devel GeoIP-devel rpm-build rpm-sign expect
+ wget  -r --no-parent -A n2n*rpm -A ndpi*rpm -A ntopng*rpm -A pfring*rpm http://packages.ntop.org/centos/7/x86_64/Packages/
 
-Create an unprivileged user: ::
+To access the stable repository: ::
 
- useradd builder
-
-Switch to the newly created user: ::
-
- su - builder
-
-Clone all repositories: ::
-
- git clone https://github.com/ntop/ntopng.git -b 3.0-stable
- git clone https://github.com/ntop/nDPI.git -b 2.0-stable
-
-Prepare the RPM environment: ::
-
- mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
- echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
-
-Compile all software: ::
-
- cd nDPI/
- ./autogen.sh && ./configure && make
- cd ../ntopng
- ./autogen.sh && ./configure && make
+ cd /etc/yum.repos.d/
+ wget http://packages.ntop.org/centos-stable/ntop.repo -O ntop.repo
 
 
-Build the RPM: ::
-
- make build-rpm-ntopng-data
- make build-rpm-ntopng
-
-
-Errors on rpm signing can be ignored if GPG signature is not needed.
+See also http://packages.ntop.org/centos-stable/
 
 Links
 =====
