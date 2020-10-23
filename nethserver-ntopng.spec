@@ -19,6 +19,7 @@ BuildRequires: nethserver-devtools
 Obsoletes: nethserver-bandwidthd
 Obsoletes: bandwidthd
 Obsoletes: ntopng-pcap
+Obsoletes: pfring
 
 %description
 NethServer ntopng configuration
