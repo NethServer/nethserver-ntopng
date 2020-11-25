@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 3.0.2
+Version: 3.1.0
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -59,6 +59,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 /usr/libexec/nethserver/api/%{name}/
 
 %changelog
+* Wed Nov 25 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.0-1
+- Access web applications from port 980 - NethServer/dev#6344
+
 * Fri Jul 03 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.0.2-1
 - Fix ntopng web interface url (#25)
 
