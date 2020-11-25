@@ -12,6 +12,7 @@ BuildArch: noarch
 
 Requires: ntopng >= 4
 Requires: redis
+Requires: nethserver-httpd-admin-service
 
 BuildRequires: perl
 BuildRequires: nethserver-devtools
