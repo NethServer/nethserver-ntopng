@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 3.1.1
+Version: 3.1.2
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -59,6 +59,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 /usr/libexec/nethserver/api/%{name}/
 
 %changelog
+* Mon Jan 11 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.2-1
+- UI issue on tables using vue-good-table - Bug NethServer/dev#6390
+
 * Mon Nov 30 2020 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.1-1
 - ntopng 4.2 not started - Bug NethServer/dev#6350
 
