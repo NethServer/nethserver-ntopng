@@ -80,6 +80,9 @@ def get_traffic_by_protocol():
 
     for elem in output_json:
         protocol = elem['proto']
+        # skip bad elements
+        if not 'throughput_bps' in elem:
+            continue
         # convert from bytes per second to bits per second
         throughput = elem['throughput_bps'] * 8
 
