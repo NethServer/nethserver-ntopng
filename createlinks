@@ -76,3 +76,11 @@ event_services("interface-update", qw(
 event_actions("post-restore-config", qw(
     nethserver-ntopng-network-reset 03
 ));
+
+#
+# Event post-restore-data
+#
+
+event_actions("post-restore-data", qw(
+    nethserver-ntopng-fix-rsync-perms 10
+));
