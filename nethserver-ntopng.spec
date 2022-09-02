@@ -1,6 +1,6 @@
 Summary: NethServer ntopng configuration
 Name: nethserver-ntopng
-Version: 3.1.3
+Version: 3.1.4
 Release: 1%{?dist}
 License: GPL
 URL: %{url_prefix}/%{name}
@@ -59,6 +59,9 @@ echo "%doc COPYING" >> %{name}-%{version}-filelist
 /usr/libexec/nethserver/api/%{name}/
 
 %changelog
+* Fri Sep 02 2022 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.4-1
+- rsync disaster recovery introduces permissions issue - Bug NethServer/dev#6691
+
 * Wed Dec 01 2021 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 3.1.3-1
 - api: fix traffic-by-protocol chart - NethServer/nethserver-ntopng#33 
 
